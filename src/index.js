@@ -10,8 +10,11 @@ import '@fortawesome/fontawesome-free/js/all.min';
 
 $(function() {
     $('[data-bs-toggle="tooltip"]').tooltip();
+    
+    $('.add-to-cart-btn').click(function(){
+        alert('أضيف المنتج إلي عربة الشراء');
+    });
 });
-
 
 
 
