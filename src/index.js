@@ -14,7 +14,9 @@ $(function() {
     $('.add-to-cart-btn').click(function(){
         alert('أضيف المنتج إلي عربة الشراء');
     });
+    $("#copyright").text( 'جميع الحقوق محفوظة ' + (new Date).getFullYear() );
 });
+// document.getElementById("copyright").innerHTML = ('جميع الحقوق محفوظة ' + new Date().getFullYear());
 
 
 
