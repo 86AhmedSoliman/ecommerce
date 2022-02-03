@@ -15,6 +15,11 @@ $(function() {
         alert('أضيف المنتج إلي عربة الشراء');
     });
     $("#copyright").text( 'جميع الحقوق محفوظة ' + (new Date).getFullYear() );
+    // اختيار المقاسات والالوان في صفحة المنتج
+    $('.product-option input[type="radio"]').change(function(){
+        $(this).parents('.product-option').siblings().removeClass('active');
+        $(this).parents('.product-option').addClass('active');
+    });
 });
 // document.getElementById("copyright").innerHTML = ('جميع الحقوق محفوظة ' + new Date().getFullYear());
 
