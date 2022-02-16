@@ -6,6 +6,9 @@ import 'bootstrap/dist/js/bootstrap.min.js';//import 'bootstrap';
 import 'jquery/dist/jquery.min';
 import 'popper.js/dist/popper.min';
 import '@fortawesome/fontawesome-free/js/all.min';
+import 'webpack-jquery-ui';
+import 'webpack-jquery-ui/css';
+import 'jquery-ui-touch-punch/jquery.ui.touch-punch.min.js';
 
 
 $(function() {
@@ -65,6 +68,69 @@ $(function() {
         $('#total-price-for-all-products').text(totallPriceForAllProducts + 'دولار');
 
     }
+    var citiesByCountry = {
+        sa: ['الرياض','جدة'],
+        eg: ['القاهرة','الإسكندرية'],
+        jo: ['عمان','الزرقاء'],
+        sy: ['دمشق','حلب','حماة']
+    };
+    // عندما يتغير البلد
+    $('#form-checkout select[name="country"]').change(function(){
+
+        // اجلب رمز البلد
+        var country = $(this).val();
+
+        // اجلب مدن هذا البلد من المصفوفة
+        var cities = citiesByCountry[country];
+
+        // فرغ قائمة المدن تماما
+        $('#form-checkout select[name="city"]').empty();
+
+        // إضافة خيار إختر المدينة
+        $('#form-checkout select[name="city"]').append(
+            '<option disabled selected value="">إختر المدينة</option>'
+        );  
+        
+        // أضف المدن إلي قائمة المدن
+        cities.forEach(function(city){
+            var newOption = $('<option></option>');
+            newOption.text(city);
+            newOption.val(city);
+            $('#form-checkout select[name="city"]').append(newOption);
+        })
+    });
+    // عندما تتغير طريقة الدفع
+    $('#form-checkout input[name="payment-method"]').change(function(){
+
+        // إجلب القيمة المختارة حاليا
+        var paymentMethod = $(this).val();
+
+        // إذا كانت القيمة عند الإستلام
+        if(paymentMethod === 'on-delivery'){
+
+            // عطل حقول بطاقة الإئتمان
+            $('#credit-card-info input').prop('disabled', true);
+
+        } else {
+            // وإلا فعلها
+            $('#credit-card-info input').prop('disabled', false);
+        }
+        // بدل معلومات بطاقة الإئتمان بين الظهور والإخفاء
+        $('#credit-card-info').toggle();
+    });
+
+    // مكون البحث حسب السعر
+    $( "#price-range" ).slider({
+        range: true, // هيظهر مقبض واحد للتحكم false اذا كان
+        min: 50,
+        max: 1000,
+        step: 50,
+        values: [ 250, 800 ],
+        slide: function( event, ui ) {
+            $( "#price-min" ).text( ui.values[ 0 ]);//0 تمثل القيمة الصغري
+            $( "#price-max" ).text( ui.values[ 1 ]);//1 تمثل القيمة الكبري
+        }
+    });
 });
 // document.getElementById("copyright").innerHTML = ('جميع الحقوق محفوظة ' + new Date().getFullYear());
 
